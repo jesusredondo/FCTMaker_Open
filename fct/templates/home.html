@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content%}
+
+    <h1 class="text-center mt-5 tituloMaker" >FCTMaker</h1>
+    <div class="container mt-4">
+
+        <div class="container">
+            <div class="text-center">
+            {% if user.is_authenticated %}
+                <h4 style="font-family: 'Charmonman', cursive;">Bienvenid@, {%  if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</h4>
+            {% else %}
+                <h4>No estás logueado en el sistema</h4>
+                <a class="btn btn-primary lead" href="{% url 'login' %}">Log in</a>
+            {% endif %}
+        </div>
+
+        {% include 'snippetsHTML/corporativo.html' %}
+
+        </div>
+
+
+
+
+    </div>
+
+
+{% endblock content %}

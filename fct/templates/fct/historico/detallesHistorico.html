@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content%}
+
+    {% if not user.is_superuser %}
+        {%  include 'base/needLoginSuperUser.html' %}
+    {%  else %}
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="/fct/">Alumnos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ historico.alumno.nombre_alumno }} {{ historico.alumno.apellidos_alumno }}</li>
+            </ol>
+        </nav>
+
+        <div class="container">
+
+        <div class="row">
+            <div class="col-6">
+                <h1 class="" >{{ historico.alumno.nombre_alumno }} {{ historico.alumno.apellidos_alumno }}</h1>
+                <ul class="listaDetallesAlumno">
+                    <li><a href="/fct/historico/{{ historico.id }}/anexo2">Generar Anexo 2</a></li>
+                    <li><a href="/fct/historico/{{ historico.id }}/anexo3">Generar Anexo 3</a></li>
+                    <li><a href="/fct/historico/{{ historico.id }}/anexo4">Generar Anexo 4</a></li>
+                    <li><a href="/fct/historico/{{ historico.id }}/anexo5">Generar Anexo 5</a></li>
+                    <li><a href="/fct/historico/{{ historico.id }}/anexo10B">Generar Anexo 10B</a></li>
+                    <li><a href="/fct/historico/{{ historico.id }}/completo">Descargar todos los anexos como zip <img style="width:30px;" src="{% static 'Images/Icons/folder_zip.png' %}"></a></li>
+                </ul>
+
+            </div>
+            <div class="col-4 offset-md-1">
+                <div class="card bg-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header">EMPRESA</div>
+                    <div class="card-body">
+                        <a href="/fct/empresa/{{ historico.empresa.id }}">
+                            <h5 class="card-title">{{ historico.empresa.nombre_empresa }}</h5>
+                        </a>
+                        <p class="card-text">
+                            <small><strong>Localidad:</strong> {{ historico.empresa.localidad_empresa }}</small>
+                        </p>
+                        <p class="card-text">
+                            <small><strong>Teléfono:</strong> {{ historico.empresa.telefono_empresa }}</small>
+                        </p>
+                        <p>
+                            <a class="btn btn-dark w-100" href="/fct/empresa/{{ historico.empresa.id }}/anexo0">Generar <b>NUEVO</b>  anexo 0</a><br>
+                        </p>
+
+                        <a class="btn btn-dark w-100" href="/fct/historico/{{ historico.id }}/anexo1">Anexo 1</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    {%  endif %}
+{% endblock %}

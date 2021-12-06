@@ -1,0 +1,13 @@
+{% load static %}
+
+{% if not alumnosHistorico %}
+    <option value="none">Sin alumnos</option>
+{% endif %}
+{% for alumnoHistorico in alumnosHistorico %}
+    <div class="card bg-light mb-3 margen3" style="width: 18rem;">
+        <div class="card-header"><a href="/fct/historico/{{ alumnoHistorico.id }}">{{  alumnoHistorico.alumno.nombre_alumno }} {{ alumnoHistorico.alumno.apellidos_alumno }}</a> <a href="/fct/historico/{{ alumnoHistorico.id }}/completo"><img style="float:right;" src="{% static 'open-iconic/svg/data-transfer-download.svg' %}"></a></div>
+        <div class="card-body">
+            <p class="card-text"><a href="/fct/empresa/{{ alumnoHistorico.empresa.id }}"><small class="mayusculas">{{ alumnoHistorico.empresa.nombre_empresa }}</small></a></p>
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,93 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    {% if not user.is_superuser %}
+        {% include 'base/needLoginSuperUser.html' %}
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/empresas/empresa.css' %}"/>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="/fct/empresas/">Empresas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ empresa.nombre_empresa }}</li>
+            </ol>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 id="h-nombre-empresa">{{ empresa.nombre_empresa }}</h2>
+                    <br>
+                    <p><b>Representante</b>: {{ empresa.nombre_representante }} {{ empresa.apellidos_representante }}
+                    </p>
+                    <p><b>Tutor empresa</b>: {{ empresa.nombre_tutor_empresa }} {{ empresa.apellidos_tutor_empresa }}
+                    </p>
+                    <p><b>Teléfono</b>: {{ empresa.telefono_empresa }}</p>
+
+                    <h3 class="textoCentrado mt-2">INFO ANEXO 0</h3>
+                    <p><b>Número de CONVENIO Anexo 0</b>: {{ empresa.numero_convenio }}</p>
+                    <a class="btn btn-danger col-md-5 margen5 d-block" href="/fct/empresa/{{ empresa.id }}/anexo0">Generar
+                        <b>NUEVO</b> anexo 0</a>
+
+                    <!-- Gráfico de alumnos en los cursos-->
+                    {% comment  %}
+                    TODO: ESTO ESTARÍA MEJOR HACIENDO UNA PETICIÓN PARA UN JSON Y TRAYENDOSE LOS DATOS PARA CADA CURSO:
+                    {% endcomment %}
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+                            integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+                            crossorigin="anonymous"></script>
+                    {% for siglas, ciclo in alumnos_ciclo.items %}
+                        <h3 class="textoCentrado">{{ siglas }}</h3>
+                        <canvas id="chart-alumnos_{{ siglas }}" class="mb-2"></canvas>
+                        <script>
+                            var ctx = document.getElementById('chart-alumnos_{{ siglas }}').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: [
+                                        {% for nombre_curso in ciclo.nombres_cursos %} '{{nombre_curso}}', {% endfor %}],
+                                    datasets: [{
+                                        label: 'Alumnos {{siglas}}',
+                                        data: [{% for num_alumn in ciclo.alumn %} {{num_alumn}}, {% endfor %}],
+                                        backgroundColor:
+                                            'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    },
+                                    ]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+                        </script>
+                    {% endfor %}
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action active textoCentrado">
+                            Histórico de alumnos
+                        </button>
+                        {% for historico in historicos_de_empresa %}
+                            <a href="/fct/historico/{{ historico.id }}" type="button"
+                               class="list-group-item list-group-item-action historico-btn">{{ historico.alumno.nombre_alumno }} {{ historico.alumno.apellidos_alumno }}
+                                <span class="float-right"> {{ historico.curso.curso_academico }} {{ historico.curso.ciclo_formativo.siglas_ciclo_formativo }} </span></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="{% static 'js/empresas/empresa.js' %}"></script>
+    {% endif %}
+{% endblock %}

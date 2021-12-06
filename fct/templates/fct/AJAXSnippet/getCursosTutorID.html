@@ -1,0 +1,6 @@
+{% if not cursos %}
+    <option value="none">Sin cursos</option>
+{% endif %}
+{% for curso in cursos %}
+    <option value="{{ curso.id }}">{{ curso.curso_academico}} ({% if curso.inicio_realizacion_fct.month < 7 %}  Marzo-Junio {% else %} Septiembre-Diciembre {% endif %} ) - {{curso.ciclo_formativo.nombre_ciclo_formativo }}</option>
+{% endfor %}

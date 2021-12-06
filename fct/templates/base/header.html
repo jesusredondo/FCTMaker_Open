@@ -1,0 +1,28 @@
+{% load static %}
+
+{% if user.is_superuser %}
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">FCTMaker</a>
+    <a class="navbar-brand" href="/admin">Administración</a>
+    <a class="navbar-brand" href="/fct">Alumnos</a>
+    <a class="navbar-brand" href="/fct/empresas">Empresas</a>
+    <a class="navbar-brand" href="/tutoriales/">Tutoriales</a>
+    <a class="navbar-brand" >-</a>
+    <a class="navbar-brand" href="/admin/logout/">Cerrar sesión</a>
+
+    <div class="mr-auto"></div>
+
+
+    <a class="navbar-brand" href="https://github.com/jesusredondo/FCTMaker_Open" target="_blank">
+    <img class="p-1 mr-2" style="height: 50px;background-color:white;border-radius: 4px;" src="{% static '/Images/logos/ic_sinfondo_small.png' %}">
+    FCTMaker
+    </a>
+
+
+</nav>
+
+{% else %}
+     {% include 'base/headerInstitucional.html' %}
+{% endif %}

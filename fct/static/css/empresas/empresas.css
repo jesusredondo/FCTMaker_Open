@@ -1,0 +1,21 @@
+#tabla_empresas th{
+    min-width: 100px;
+}
+
+#tabla_empresas th:nth-child(2){
+    min-width: 200px;
+}
+
+.iconoSortTabla{
+    opacity: 0;
+    transition: opacity 200ms;
+}
+
+th:hover .iconoSortTabla{
+    opacity: 1;
+    transition: opacity 200ms;
+}
+
+th:hover{
+    cursor: pointer;
+}

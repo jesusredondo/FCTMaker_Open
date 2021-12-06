@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+
+
+{% load static %}
+
+{% block content%}
+
+    {% if not user.is_superuser %}
+        {%  include 'base/needLoginSuperUser.html' %}
+    {%  else %}
+
+        <div class="container">
+            <form action="/upload/alumnos/confirmar" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {%  for field in form  %}
+                    {% if field.label == 'Nombre' %}
+                        <br>
+                        <br>
+                    {% endif %}
+                    {{ field.label }} {{ field }}
+                {% endfor %}
+            <br>
+                <input class="btn btn-primary" type="submit" value="Submit" />
+            </form>
+
+         </div>
+    {%  endif %}
+{% endblock %}

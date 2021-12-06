@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content%}
+    {% if not user.is_superuser %}
+        {%  include 'base/needLoginSuperUser.html' %}
+    {%  else %}
+        <div class="container">
+
+            <h1 class="mt-5 mb-3 text-center">Tutoriales para profesores</h1>
+
+            <p>FCTMaker permite realizar distintas acciones según el rol del usuario. A continuación revisamos cada una de las acciones posibles para los profesores:</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Gestionar la FCT:</h2>
+                    <ol>
+                        <li><a id="tutorial_GFCT_nuevosCursos" class="puntero-seleccionable" href="#tutorial_GFCT_nuevosCursos">Añadir nuevos Cursos</a></li>
+                        <li><a id="tutorial_GFCT_nuevasEmpresas" class="puntero-seleccionable" href="#tutorial_GFCT_nuevasEmpresas">Añadir nuevas Empresas</a></li>
+                        <li><a id="tutorial_GFCT_anadirAlumnosSistema" class="puntero-seleccionable" href="#tutorial_GFCT_anadirAlumnosSistema">Añadir Alumnos en el sistema</a></li>
+                        <li><a id="tutorial_GFCT_anadirAlumnosCurso" class="puntero-seleccionable" href="#tutorial_GFCT_anadirAlumnosCurso">Añadir Alumnos a cursos (Historico-Alumno-Cursos)</a></li>
+                        <li><a id="tutorial_GFCT_generacionDocumentacion" class="puntero-seleccionable" href="#tutorial_GFCT_generacionDocumentacion">Generación de la documentación (Anexos)</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div id="contenedor-tutorial" class="mt-4">
+                <div class="tutorial-container mb-5">
+                    <h4 class="mt-5 mb-3 text-center">Selecciona un tutorial para visualizarlo.</h4>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <script>
+
+
+
+
+        document.querySelectorAll('[id^=tutorial]').forEach( a =>{
+                a.addEventListener('click', function (event) {
+                    fetch('/ajax/getTutorialProfesor/'+a.id)
+                        .then(response => response.text())
+                        .then(contenido => {
+                            document.querySelector('#contenedor-tutorial').innerHTML = contenido;
+                            quitarTodasNegritas()
+                            a.classList.add("font-weight-bold")
+                        })
+
+                });
+            }
+        )
+
+
+        function quitarTodasNegritas(){
+            document.querySelectorAll('[id^=tutorial]').forEach( a => {
+                a.classList.remove("font-weight-bold")
+            });
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded',function (event) {
+            if(location.href.includes('#')){ //Si viendo un tutorial en concreto.
+                let nombreTutorialVisualizar = location.href.split('#').slice(-1)[0] //Desde el último # hasta el final
+                let tutorialA = document.querySelector('a[href$='+nombreTutorialVisualizar+']')
+                if(tutorialA){
+                    tutorialA.dispatchEvent(new Event('click'));
+                }
+            }
+        });
+
+
+        </script>
+
+
+    {%  endif %}
+{% endblock %}

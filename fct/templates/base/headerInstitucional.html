@@ -1,0 +1,14 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">FCTMaker</a>
+    <p class="mt-0 mb-0" style="color:lightgrey">Sistema gestor de FCTS.</p>
+
+    {% if user.is_authenticated %}
+        <a class="navbar-brand ml-3" href="/logout/">Cerrar sesión</a>
+    {% endif %}
+    <p class="mr-auto"></p>
+    <a class="navbar-brand" href="https://github.com/jesusredondo/FCTMaker_Open" target="_blank">
+        <img class="p-1 mr-2" style="height: 50px;background-color:white;border-radius: 4px;" src="{% static '/Images/logos/ic_sinfondo_small.png' %}">
+        FCTMaker
+    </a>
+</nav>

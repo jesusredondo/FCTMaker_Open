@@ -1,0 +1,148 @@
+body{
+    margin: 0px;!important;
+}
+
+.cabeceros{
+    background-color: #417690;
+    width: auto;
+    color: #ffc;
+    padding:10px;
+    margin: 0px;
+}
+
+.centrador{
+    display:block !important;
+    margin: 0 auto !important;
+    padding:100px;
+}
+
+.mayusculas{
+    text-transform: uppercase;
+}
+
+.listaDetallesAlumno {
+    list-style: none;
+}
+
+
+.margen3{
+    margin:3px;
+}
+
+.margen5{
+    margin:5px;
+}
+
+.textoCentrado{
+    text-align: center;
+}
+
+.tituloMaker{
+    font-family: 'Charmonman', cursive;
+    color: #5598e8;
+    font-size: 80px;
+    margin-top: 3rem!important;
+    text-align: center;
+}
+
+.reducir-img img{
+    display: block;
+    margin: auto;
+    max-width: 600px;
+}
+
+@media only screen and (max-width: 800px) {
+   .reducir-img img{
+        max-width: 300px;
+    }
+}
+
+.reducirmas-img img{
+    display: block;
+    margin: auto;
+    max-width: 450px !important;
+}
+
+@media only screen and (max-width: 1000px) {
+   .reducirmas-img img{
+        max-width: 250px !important;
+    }
+}
+
+.puntero-seleccionable{
+    cursor: pointer;
+}
+.puntero-seleccionable:hover{
+    background-color: rgba(228, 228, 228, 0.49);
+    border-radius: 5px;
+}
+
+.max-width-400{
+    max-width: 400px;
+}
+
+.max-width-500{
+    max-width: 500px;
+}
+
+.max-width-600{
+    max-width: 600px;
+}
+
+
+.proyecto-link{
+    color: inherit;
+
+}
+.proyecto-link:hover{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.bg-amarillo{
+    background-color: rgb(255, 249, 157);
+}
+
+.bg-verde{
+    background-color: rgb(194, 255, 203);
+}
+
+
+
+/** MODAL **/
+#modalEspera{
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: darkmagenta;
+    background-color: rgba(182, 174, 176, 0.97);
+}
+
+
+.fadeIn{
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-iteration-count: initial;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+
+    100%{
+        opacity: 0.8;
+    }
+  }
+
+
+/** TUTORIAL **/
+.tutorial-container{
+    background-color: rgba(216,218,207,0.25);
+    padding: 15px;
+}

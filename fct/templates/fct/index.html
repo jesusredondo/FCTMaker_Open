@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content%}
+
+    {% if not user.is_superuser %}
+        {%  include 'base/needLoginSuperUser.html' %}
+    {%  else %}
+        <div class="container">
+            <h1 class="mt-5 mb-3 text-center">{{ instituto.nombre_instituto }}</h1>
+
+
+            <!-- TODO: Modificar este hidden: unir tablas usuarios y users y eliminar JS -->
+            <div id="userHidden" #class="d-none" nombre="{{ user.first_name }}" apellidos="{{ user.last_name }}"></div>
+
+            <div class="form-group row">
+                <label for="selectorTutor" class="col-sm-3 col-form-label"><h5>Alumnos para el tutor</h5></label>
+                <div class="col-sm-9">
+                    <select id="selectorTutor" class="form-control form-control-lg">
+                        {% for tutor in tutores %}
+                        <option value="{{ tutor.id }}">{{ tutor }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="selectorCurso" class="col-sm-3 col-form-label"><h5>Para el curso</h5></label>
+                <div class="col-sm-9">
+                    <select id="selectorCurso" class="form-control form-control-lg">
+                        <option value="none">-------</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div id="contenedorBusquedaYAlumnos" class="card-body">
+                <!-- Búsqueda -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <img src="{% static 'open-iconic/svg/magnifying-glass.svg' %}">
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" data-search="buscaAlumnos{{ curso.siglas_ciclo_formativo }}" placeholder="Filtrar" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <!-- TODO: Eliminar lo de las siglas aquí-->
+                <div id="buscaAlumnos{{ curso.siglas_ciclo_formativo }}" class="row container  justify-content-md-center">
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+             <div id="accordion">
+                {% for curso in cursos %}
+                <div class="card" >
+                    <div class="card-header" data-toggle="collapse" data-target="#collapse{{ curso.siglas_ciclo_formativo }}" aria-expanded="true" aria-controls="collapse{{ curso.siglas_ciclo_formativo }}">
+                        <h5 class="mb-0"  >
+                               <span class="badge badge-info">{{ curso.siglas_ciclo_formativo }}</span>  {{ curso.tutor_centro.nombre_tutor_centro }}
+                        </h5>
+                    </div>
+
+                    <div id="collapse{{ curso.siglas_ciclo_formativo }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">do
+                            <!-- Búsqueda -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <img src="{% static 'open-iconic/svg/magnifying-glass.svg' %}">
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" data-search="buscaAlumnos{{ curso.siglas_ciclo_formativo }}" placeholder="Filtrar" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div id="buscaAlumnos{{ curso.siglas_ciclo_formativo }}" class="row container  justify-content-md-center">
+                            {% for alumno in curso.alumno_set.all %}
+                                <div class="card bg-light mb-3 margen3" style="width: 18rem;">
+                                    <div class="card-header"><a href="/fct/alumno/{{ alumno.id }}">{{  alumno.nombre_alumno }} {{ alumno.apellidos_alumno }}</a> <a href="/fct/historico/{{ alumno.id }}/completo"><img style="float:right;" src="{% static 'open-iconic/svg/data-transfer-download.svg' %}"></a></div>
+                                    <div class="card-body">
+                                        <p class="card-text"><a href="/fct/empresa/{{ alumno.empresa.id }}"><small class="mayusculas">{{ alumno.empresa.nombre_empresa }}</small></a></p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+             </div>
+
+        </div>
+
+
+        <script src="{% static 'js/fctIndex.js' %}"></script>
+
+
+    {%  endif %}
+{% endblock %}

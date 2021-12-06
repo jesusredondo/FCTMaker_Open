@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+
+{% block content%}
+
+    {% if not user.is_superuser %}
+        {%  include 'base/needLoginSuperUser.html' %}
+    {%  else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/empresas/empresas.css' %}" />
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="/fct/empresas/">Empresas</a></li>
+            </ol>
+        </nav>
+
+        <div class="container">
+            <h1 class="mt-5 mb-3 text-center">Empresas en FCTMaker</h1>
+            <p>Listado de las empresas por curso</p>
+
+            <table class="table" id="tabla_empresas">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            Empresa</th>
+                        <th scope="col">Cursos</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            Localidad</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            FPB-1</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            FPB-2</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            SMR</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            ASIR</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            DAM</th>
+                        <th scope="col">
+                            <svg class="iconoSortTabla" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                            </svg>
+                            DAW</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTablaEmpresas">
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Listado cursos</td>
+                        <td>Anexo 0</td>
+                        <td>FP1</td>
+                        <td>FP2</td>
+                        <td>SMR</td>
+                        <td>ASIR</td>
+                        <td>DAM</td>
+                        <td>DAW</td>
+                    </tr>
+              </tbody>
+            </table>
+
+        </div>
+
+
+        <script src="{% static 'js/empresas/empresas_info.js' %}"></script>
+    {%  endif %}
+{% endblock %}

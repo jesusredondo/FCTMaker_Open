@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+
+
+{% load static %}
+
+{% block content%}
+
+    {% if not user.is_superuser %}
+        {%  include 'base/needLoginSuperUser.html' %}
+    {%  else %}
+
+        <div class="container">
+            <h1 class="mt-5 mb-3 text-center">Introducir alumnos desde rayuela</h1>
+
+            <p>Existen varias maneras de dar de alta a los alumnos:</p>
+            <ul>
+                <li><strong>Empleando la pestaña de administración</strong>. Desde <a href="/admin/fct/alumno">administración</a> puedes consultar y editar los alumnos del sistema. Emplea esta opción si quieres añadir un número reducido de alumnos manualmente o bien quieres modificarlos.</li>
+                <li><strong>Cargar un grupo de alumnos desde rayuela</strong>. Puedes cargar un grupo completo de alumnos desde rayuela, para ello emplea el formulario que se encuentra a continuación. No te preocupes si no quieres añadir todos los alumnos, tendrás la opción de filtrarlos antes de introducirlos al sistema.</li>
+
+            </ul>
+            <form  action="/upload/alumnos" method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 <div class="form-group">
+                    <div class="custom-file">
+                        {{ form }}
+                        <label class="custom-file-label" for="id_Fichero_de_alumnos">Elige el fichero</label>
+                    </div>
+                    <small class="form-text text-muted">El fichero tiene que ser en formato XLS.</small>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Submit" />
+            </form>
+        </div>
+
+
+        <script>
+            document.querySelector("label[for=id_Fichero_de_alumnos]").remove();
+            document.querySelector("#id_Fichero_de_alumnos").classList.add("custom-file-input");
+            document.querySelector("#id_Fichero_de_alumnos").addEventListener("change",function (event) {
+                let nombreFichero = this.value.split("\\").pop();
+                if(nombreFichero != "" ){
+                    document.querySelector("label.custom-file-label").textContent = nombreFichero;
+                }
+            });
+            </script>
+    {%  endif %}
+{% endblock %}
